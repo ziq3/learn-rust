@@ -117,7 +117,20 @@ enum Command {
 /// "quit" -> Quit, "move 3 -4" -> Move{3,-4}, "say hello world" -> Say("hello world"), anything else -> None.
 /// Hints: `split_once(' ')`, `str::parse::<i32>().ok()?`, matching on tuples `match (a, b) { ... }`.
 fn parse(input: &str) -> Option<Command> {
-    todo!()
+    if input == "quit" {
+        return Some(Command::Quit);
+    }
+    let (cmd, rest) = input.split_once(' ')?;
+    if cmd == "move" {
+        let (a, b) = rest.split_once(' ')?;
+        let x = a.parse::<i32>().ok()?;
+        let y = b.parse::<i32>().ok()?;
+        return Some(Command::Move { x, y });
+    }
+    if cmd == "say" {
+        return Some(Command::Say(rest.to_string()));
+    }
+    None
 }
 
 #[cfg(test)]
