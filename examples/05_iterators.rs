@@ -15,7 +15,7 @@ fn apply<F: Fn(i32) -> i32>(f: F, x: i32) -> i32 {
 }
 
 fn main() {
-    let nums = vec![1, 2, 3, 4, 5, 6];
+    let nums = [1, 2, 3, 4, 5, 6];
 
     // Closures capture their environment.
     let factor = 10;
@@ -43,12 +43,15 @@ fn main() {
         .enumerate()
         .map(|(i, x)| format!("{i}:{x}"))
         .collect();
-    let product = nums.iter().fold(1, |acc, x| acc * x);
+    let product: i32 = nums.iter().product();
+    let joined = nums
+        .iter()
+        .fold(String::new(), |acc, x| acc + &x.to_string()); // fold = general accumulator
     let zipped: Vec<(i32, char)> = nums.iter().copied().zip("abc".chars()).collect();
     let diffs: Vec<i32> = nums.windows(2).map(|w| w[1] - w[0]).collect();
     let first_big_square = (1..).map(|x| x * x).find(|&x| x > 50); // infinite range works: lazy
     println!("{evens_sq:?} {sum} {small:?}/{big:?} {any_big} {pos:?}");
-    println!("{labeled:?} {product} {zipped:?} {diffs:?} {first_big_square:?}");
+    println!("{labeled:?} {product} {joined} {zipped:?} {diffs:?} {first_big_square:?}");
 
     // HashMap + entry API: the standard counting pattern
     let mut counts: HashMap<&str, usize> = HashMap::new();

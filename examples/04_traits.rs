@@ -92,7 +92,8 @@ fn main() {
     println!("{:?}", chorus(&zoo));
 
     let p = Point { x: 1, y: 2 } + Point { x: 10, y: 20 };
-    println!("{p} {p:?} {}", p.to_string()); // to_string() comes free with Display
+    let s: String = p.to_string(); // to_string() comes free with Display
+    println!("{p} {p:?} {s}");
 
     println!(
         "{:?} {:?} {:?}",

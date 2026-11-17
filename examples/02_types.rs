@@ -99,7 +99,11 @@ enum Shape {
 
 impl Shape {
     fn area(&self) -> f64 {
-        todo!() // use match; std::f64::consts::PI
+        match self {
+            Shape::Circle { r } => std::f64::consts::PI * r * r,
+            Shape::Rect { w, h } => w * h,
+            Shape::Square(s) => s * s,
+        }
     }
 }
 

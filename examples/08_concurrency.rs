@@ -15,7 +15,7 @@ use std::thread;
 
 fn main() {
     // 1. spawn + join. `move` hands ownership of `data` to the thread.
-    let data = vec![1, 2, 3];
+    let data: Vec<i32> = (1..=3).collect(); // heap data: really moved, not copied
     let h = thread::spawn(move || data.iter().sum::<i32>());
     println!("sum = {}", h.join().unwrap());
 
