@@ -78,12 +78,19 @@ mod tests {
         let t = Instant::now();
         let r = fetch_all(vec![(1, 200), (2, 100), (3, 200)]).await;
         assert_eq!(r, ["result 1", "result 2", "result 3"]);
-        assert!(t.elapsed() < Duration::from_millis(400), "not concurrent: {:?}", t.elapsed());
+        assert!(
+            t.elapsed() < Duration::from_millis(400),
+            "not concurrent: {:?}",
+            t.elapsed()
+        );
     }
 
     #[tokio::test]
     async fn timeouts() {
-        assert_eq!(fetch_with_timeout(1, 10, 200).await, Some("result 1".into()));
+        assert_eq!(
+            fetch_with_timeout(1, 10, 200).await,
+            Some("result 1".into())
+        );
         assert_eq!(fetch_with_timeout(2, 300, 50).await, None);
     }
 }

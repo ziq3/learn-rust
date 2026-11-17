@@ -14,7 +14,8 @@
 fn main() {
     // --- Move: assigning or passing a heap value transfers ownership ---
     let a = String::from("hello");
-    let b = a; // `a` is no longer valid
+    // `a` is no longer valid after this line:
+    let b = a;
     // println!("{a}"); // ❌ borrow of moved value
     println!("b = {b}");
 
@@ -32,8 +33,9 @@ fn main() {
 
     // --- Why the borrow rule matters ---
     let mut v = vec![1, 2, 3];
-    let first = &v[0]; // shared borrow into v's buffer
-    // v.push(4);      // ❌ push may reallocate, which would leave `first` dangling
+    // shared borrow into v's buffer:
+    let first = &v[0];
+    // v.push(4); // ❌ push may reallocate, which would leave `first` dangling
     println!("first = {first}"); // last use of `first` -> borrow ends here
     v.push(4); // ✅ fine now
     println!("{v:?}");
@@ -66,12 +68,20 @@ fn first_word(s: &str) -> &str {
 
 /// Return the longest word (first one on ties). Return a slice of `s`, don't allocate.
 fn longest_word(s: &str) -> &str {
-    todo!()
+    let mut best = "";
+    for w in s.split_whitespace() {
+        if best.len() < w.len() {
+            best = w;
+        }
+    }
+    best
 }
 
 /// Append "!" to every string, in place.
 fn excite(words: &mut Vec<String>) {
-    todo!()
+    for w in words {
+        w.push_str("!");
+    }
 }
 
 #[cfg(test)]

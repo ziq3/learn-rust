@@ -29,12 +29,20 @@ fn main() {
     println!("total: {total}");
 
     // The everyday toolbox
-    let evens_sq: Vec<i32> = nums.iter().filter(|&&x| x % 2 == 0).map(|&x| x * x).collect();
+    let evens_sq: Vec<i32> = nums
+        .iter()
+        .filter(|&&x| x % 2 == 0)
+        .map(|&x| x * x)
+        .collect();
     let sum: i32 = nums.iter().sum();
     let (small, big): (Vec<i32>, Vec<i32>) = nums.iter().copied().partition(|&x| x < 4);
     let any_big = nums.iter().any(|&x| x > 5);
     let pos = nums.iter().position(|&x| x == 4);
-    let labeled: Vec<String> = nums.iter().enumerate().map(|(i, x)| format!("{i}:{x}")).collect();
+    let labeled: Vec<String> = nums
+        .iter()
+        .enumerate()
+        .map(|(i, x)| format!("{i}:{x}"))
+        .collect();
     let product = nums.iter().fold(1, |acc, x| acc * x);
     let zipped: Vec<(i32, char)> = nums.iter().copied().zip("abc".chars()).collect();
     let diffs: Vec<i32> = nums.windows(2).map(|w| w[1] - w[0]).collect();

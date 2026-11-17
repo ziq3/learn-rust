@@ -64,7 +64,10 @@ impl fmt::Display for Point {
 impl Add for Point {
     type Output = Point; // associated type
     fn add(self, o: Point) -> Point {
-        Point { x: self.x + o.x, y: self.y + o.y }
+        Point {
+            x: self.x + o.x,
+            y: self.y + o.y,
+        }
     }
 }
 
@@ -91,7 +94,12 @@ fn main() {
     let p = Point { x: 1, y: 2 } + Point { x: 10, y: 20 };
     println!("{p} {p:?} {}", p.to_string()); // to_string() comes free with Display
 
-    println!("{:?} {:?} {:?}", largest(&[3, 9, 2]), largest(&[1.5, 0.2]), largest::<i32>(&[]));
+    println!(
+        "{:?} {:?} {:?}",
+        largest(&[3, 9, 2]),
+        largest(&[1.5, 0.2]),
+        largest::<i32>(&[])
+    );
 }
 
 // ======================= EXERCISES =======================
@@ -143,10 +151,16 @@ mod tests {
     use super::*;
 
     fn art() -> Article {
-        Article { title: "Rust".into(), author: "Ferris".into() }
+        Article {
+            title: "Rust".into(),
+            author: "Ferris".into(),
+        }
     }
     fn tw() -> Tweet {
-        Tweet { user: "ann".into(), text: "hi".into() }
+        Tweet {
+            user: "ann".into(),
+            text: "hi".into(),
+        }
     }
 
     #[test]
@@ -158,7 +172,13 @@ mod tests {
 
     #[test]
     fn longest() {
-        let tweets = [tw(), Tweet { user: "bob".into(), text: "a much longer tweet".into() }];
+        let tweets = [
+            tw(),
+            Tweet {
+                user: "bob".into(),
+                text: "a much longer tweet".into(),
+            },
+        ];
         assert_eq!(longest_summary(&tweets).unwrap().user, "bob");
         assert!(longest_summary::<Tweet>(&[]).is_none());
     }

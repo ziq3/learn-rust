@@ -66,7 +66,11 @@ struct Account {
 
 impl Account {
     fn new(name: &str, ledger: &Ledger) -> Self {
-        Self { name: name.into(), balance: 0, ledger: Rc::clone(ledger) }
+        Self {
+            name: name.into(),
+            balance: 0,
+            ledger: Rc::clone(ledger),
+        }
     }
     /// Add to balance AND push "<name>+<amount>" into the shared ledger.
     fn deposit(&mut self, amount: i64) {

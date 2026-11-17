@@ -17,7 +17,10 @@ struct User {
 impl User {
     // A "constructor" is just an associated fn named `new` by convention.
     fn new(name: &str, age: u32) -> Self {
-        Self { name: name.to_string(), age }
+        Self {
+            name: name.to_string(),
+            age,
+        }
     }
     fn is_adult(&self) -> bool {
         self.age >= 18 // &self = read-only borrow
@@ -59,7 +62,9 @@ fn main() {
 
     let payments = [
         Payment::Cash,
-        Payment::Card { last4: "4242".into() },
+        Payment::Card {
+            last4: "4242".into(),
+        },
         Payment::Crypto("BTC".into(), 2.0),
     ];
     for p in &payments {
@@ -126,7 +131,10 @@ mod tests {
     fn commands() {
         assert_eq!(parse("quit"), Some(Command::Quit));
         assert_eq!(parse("move 3 -4"), Some(Command::Move { x: 3, y: -4 }));
-        assert_eq!(parse("say hello world"), Some(Command::Say("hello world".into())));
+        assert_eq!(
+            parse("say hello world"),
+            Some(Command::Say("hello world".into()))
+        );
         assert_eq!(parse("move x 1"), None);
         assert_eq!(parse("dance"), None);
     }
