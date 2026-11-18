@@ -92,7 +92,11 @@ fn parse_pair(s: &str) -> Result<(String, i32), ParseError> {
 /// Sum the values of every line. The first error wins.
 /// Hint: a loop with `?`, or `.map(parse_pair).collect::<Result<Vec<_>, _>>()?`
 fn sum_values(text: &str) -> Result<i32, ParseError> {
-    todo!()
+    let mut sum = 0;
+    for line in text.lines() {
+        sum += parse_pair(line)?.1;
+    }
+    Ok(sum)
 }
 
 #[cfg(test)]
