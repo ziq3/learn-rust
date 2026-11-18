@@ -12,6 +12,8 @@
 use std::fmt;
 use std::num::ParseIntError;
 
+use crate::ParseError::{BadValue, EmptyKey, NoEquals};
+
 #[derive(Debug)]
 enum ConfigError {
     Missing(String),
@@ -79,7 +81,12 @@ enum ParseError {
 /// "age=30" -> Ok(("age", 30)).  "age30" -> NoEquals.  "=3" -> EmptyKey.  "a=x" -> BadValue.
 /// Hints: `split_once('=').ok_or(...)?`, `.parse().map_err(|_| ...)?`
 fn parse_pair(s: &str) -> Result<(String, i32), ParseError> {
-    todo!()
+    let (a, b) = s.split_once('=').ok_or(NoEquals)?;
+    if a.is_empty() {
+        return Err(EmptyKey);
+    }
+    let c = b.parse().map_err(|_| BadValue)?;
+    Ok((a.to_string(), c))
 }
 
 /// Sum the values of every line. The first error wins.
