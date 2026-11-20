@@ -120,30 +120,30 @@ struct Tweet {
 
 impl Summary for Article {
     fn summarize(&self) -> String {
-        todo!() // "<title> by <author>"
+        format!("{} by {}", self.title, self.author)
     }
 }
 impl Summary for Tweet {
     fn summarize(&self) -> String {
-        todo!() // "@<user>: <text>"
+        format!("@{}: {}", self.user, self.text)
     }
 }
 
 /// Summarize mixed items (trait objects).
 fn summarize_all(items: &[&dyn Summary]) -> Vec<String> {
-    todo!()
+    items.iter().map(|x| x.summarize()).collect()
 }
 
 /// Generic: the item with the longest summary. Hint: `iter().max_by_key(...)`.
 fn longest_summary<T: Summary>(items: &[T]) -> Option<&T> {
-    todo!()
+    items.iter().max_by_key(|x| x.summarize().len())
 }
 
 struct Celsius(f64);
 
 impl fmt::Display for Celsius {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        todo!() // one decimal: "21.5°C". Hint: write!(f, "{:.1}...", ...)
+        write!(f, "{:.1}°C", self.0)
     }
 }
 
